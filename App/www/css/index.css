@@ -1,7 +1,7 @@
 :root {
     /* variables */
-    --mic-div-height: 70vh;
-    --mic-div-color: #b6e6bd;
+    --button-container-height: 100vh;
+    --button-container-color: #b6e6bd;
 }
 
 body {
@@ -9,64 +9,33 @@ body {
     padding: 0px;
 }
 
-.mic-box {
-    background-color: var(--mic-div-color);
-    height: var(--mic-div-height);
-    width: 100%;
-    position: absolute;
+.button-container {
+    background-color: var(--button-container-color);
+    height: var(--button-container-height);
+    width: 100vw;
+    position: relative;
     text-align: center;
-
 }
 
-  .triangle-container {
-    width: 100%;
-    text-align: center;
-    margin: auto;
-    top: var(--mic-div-height);
-    position: relative;
-  }
 
-  .triangle {
-    fill: var(--mic-div-color);
-    stroke: var(--mic-div-color);
-    stroke-linejoin: round;
-    stroke-width: 10px;
-  }
 
 .mic-button {
-    width: 150pt;
-    height: 150pt;
+    position: absolute;
+    width: 200px;
+    height: 200px;
     margin-top: 200px;
+    left: 30%;
     text-align: center;
-
     background-color: #ffffff;
-    /* background-color: #4baea0; */
-    display: inline-block;
 
     /*make button round*/
     border-radius: 50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
-    
-    /*add border and box shadow*/
+
     box-shadow: 0px 20px 30px 5px #00000021;
 
-    /*-moz-box-shadow: 0px 7px 30px 5px #00000021;*/
-
-    /*-webkit-box-shadow: 0px 7px 30px 5px #00000021;*/
-
-
 }
 
 
-.mic-button:hover {
-	background-color: #fafafa;
-}
-
-.myButton:active {
-	position:relative;
-	top:1px;
-}
 
 
 .speak-icon {
@@ -76,7 +45,5 @@ body {
     top: 26px;
 
 }
-
-
 
 
