@@ -17,7 +17,7 @@ elem.onmouseup = function() {
     var opacity_gradient = [1, 0];
     var border_rad_gradient = [50, 5];
     var left_offset_gradient = [(width-original_size)/2, (width-expanded_size)/2];
-    var top_offset_gradient = [170, 80];
+    var top_offset_gradient = [170, 60];
     var opacity_gradient = [1, 0];
 
     // Variable to keep track of progress in animation
@@ -29,7 +29,11 @@ elem.onmouseup = function() {
             clearInterval(id);
         } else {
             // Expanding animation
+
+            // Base progress off of sine
             pos = pos + 0.02;
+            cospos = 0.5 * (Math.cos((pos * Math.PI) + Math.PI) + 1)
+
             // Calculate differences
             borderRadSlope = border_rad_gradient[1] - border_rad_gradient[0];
             sizeSlope = expand_gradient[1] - expand_gradient[0];
@@ -38,12 +42,13 @@ elem.onmouseup = function() {
             opacitySlope = opacity_gradient[1] - opacity_gradient[0];
             
             // Update attributes
-            elem.style.borderRadius = (border_rad_gradient[0] + borderRadSlope*pos) + '%';
-            elem.style.width = (expand_gradient[0] + sizeSlope*pos) + 'px';
-            elem.style.height = (expand_gradient[0] + sizeSlope*pos) + 'px';
-            elem.style.left = (left_offset_gradient[0] + offsetSlope*pos) + 'px';
-            elem.style.marginTop =  (top_offset_gradient[0] + topoffsetSlope*pos) + 'px';
-            icon.style.opacity = (opacity_gradient[1] + pos*opacitySlope) + '';
+            elem.style.borderRadius = (border_rad_gradient[0] + borderRadSlope*cospos) + '%';
+            elem.style.width = (expand_gradient[0] + sizeSlope*cospos) + 'px';
+            elem.style.height = (expand_gradient[0] + sizeSlope*cospos + 70) + 'px';
+            elem.style.left = (left_offset_gradient[0] + offsetSlope*cospos) + 'px';
+            elem.style.marginTop =  (top_offset_gradient[0] + topoffsetSlope*cospos) + 'px';
+            icon.style.opacity = (opacity_gradient[1] + cospos*opacitySlope) + '';
         }
     }
+
 };

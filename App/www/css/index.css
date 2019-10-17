@@ -41,3 +41,11 @@ body {
     opacity: 1;
 
 }
+
+#outputtext {
+    position: relative;
+    opacity: 0;
+    font-size: 24pt;
+    font-family: 'Helvetica';
+    color: gray;
+}
