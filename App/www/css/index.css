@@ -49,3 +49,8 @@ body {
     font-family: 'Helvetica';
     color: gray;
 }
+
+#visualizer {
+    display: inline-block;
+    margin-top: 400px;
+}
