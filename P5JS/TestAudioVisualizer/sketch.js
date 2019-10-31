@@ -1,51 +1,28 @@
-let mic, fft, displayArray, scale;
+let mic, fft;
 
 function setup() {
   createCanvas(400, 400);
+  angleMode(DEGREES);
   noFill();
-  
-  displayArray = new Array(20);
-  
-  scale = width / 10;
-
+  colorMode(RGB, 255, 255, 255, 1);
   mic = new p5.AudioIn();
   mic.start();
-  fft = new p5.FFT(0.8, 1024);
+  fft = new p5.FFT(0.7, 64);
   fft.setInput(mic);
+  w = width / 64;
 }
 
 function draw() {
-  background(200);
-
+  background(0);
   let spectrum = fft.analyze();
-
-  getAudioContext().resume();
-  
-  let z = 0;
-
-  for (j = 0; j < displayArray.length; j++) {
-    if (j == 0)
-      displayArray[0] = spectrum;
-    else {
-      displayArray[j] = reduce(displayArray[j - 1]);
-    }
-    
-    stroke(map(j, 0, displayArray.length, 0, 200));
-    
-    beginShape();
-    for (i = 2; i < displayArray[j].length; i++) {
-      vertex(map(i, 0, displayArray.length, 0, width / 14),
-             map(displayArray[j][i], 0, 255, (height / 2) + z, 0));
-    }
-    endShape();
-    z += 10;
+  stroke(255);
+  beginShape();
+  noStroke();
+  for (i = 0; i < spectrum.length; i++) {
+    var amp = spectrum[i];
+    var y = map(amp, 0, 256, height, 0);
+    fill(i, 255, 255);
+    rect(i * w * 2 , y, w - 3 ,height - y);
   }
-}
-
-function reduce(array) {
-  let sender = new Array(array.length);
-  for (i = 0; i < array.length; i++) {
-    sender[i] = array[i] * 0.9;
-  }
-  return sender;
+  endShape();
 }
