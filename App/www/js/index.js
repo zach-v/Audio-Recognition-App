@@ -4,9 +4,12 @@ var height = window.innerHeight;
 var elem = document.getElementById('micbutton');
 var icon = document.getElementById('speakicon');
 var outputtext = document.getElementById('outputtext');
+var visualizer = document.getElementById('visualizer');
+var body = document.getElementById('body');
 
 // Initially place button in middle of view
 elem.style.left = (width-200)/2 + 'px';
+visualizer.style.display = "none";
 
 var expanded = false;
 
@@ -35,11 +38,7 @@ elem.onmouseup = function() {
                 clearInterval(id);
             } else {
                 // Expanding animation
-
-                // Base progress off of sine
                 pos = pos + 0.02;
-                cospos = 0.5 * (Math.cos((pos * Math.PI) + Math.PI) + 1)
-
                 // Calculate differences
                 borderRadSlope = border_rad_gradient[1] - border_rad_gradient[0];
                 sizeSlope = expand_gradient[1] - expand_gradient[0];
@@ -49,16 +48,19 @@ elem.onmouseup = function() {
                 textOpacitySlope = text_opacity_gradient[1] - text_opacity_gradient[0];
                 
                 // Update attributes
-                elem.style.borderRadius = (border_rad_gradient[0] + borderRadSlope*cospos) + '%';
-                elem.style.width = (expand_gradient[0] + sizeSlope*cospos) + 'px';
-                elem.style.height = (expand_gradient[0] + sizeSlope*cospos + 70) + 'px';
-                elem.style.left = (left_offset_gradient[0] + offsetSlope*cospos) + 'px';
-                elem.style.marginTop =  (top_offset_gradient[0] + topoffsetSlope*cospos) + 'px';
-                icon.style.opacity = (opacity_gradient[1] + cospos*opacitySlope) + '';
-                outputtext.style.opacity = (text_opacity_gradient[1] + cospos*textOpacitySlope) + '';
+                elem.style.borderRadius = (border_rad_gradient[0] + borderRadSlope*pos) + '%';
+                elem.style.width = (expand_gradient[0] + sizeSlope*pos) + 'px';
+                elem.style.height = (expand_gradient[0] + sizeSlope*pos + 70) + 'px';
+                elem.style.left = (left_offset_gradient[0] + offsetSlope*pos) + 'px';
+                elem.style.marginTop =  (top_offset_gradient[0] + topoffsetSlope*pos) + 'px';
+                icon.style.opacity = (opacity_gradient[1] + pos*opacitySlope) + '';
+                outputtext.style.opacity = (text_opacity_gradient[1] + pos*textOpacitySlope) + '';
             }
         }
-
+        
 
     }
+
+    visualizer.style.display = "block";
+        body.style.top = '0';
 };
