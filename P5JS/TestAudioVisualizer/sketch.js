@@ -16,13 +16,17 @@ function draw() {
   background(0);
   let spectrum = fft.analyze();
   stroke(255);
-  beginShape();
   noStroke();
   for (i = 0; i < spectrum.length; i++) {
     var amp = spectrum[i];
-    var y = map(amp, 0, 256, height, 0);
+    var y = map(amp, 0, 256, height / 2, 0);
+    var y2 = map(amp, 0, 256, 0, height / 2);
     fill(i, 255, 255);
-    rect(i * w * 2 , y, w - 3 ,height - y);
+    rect(i * w * 2 , height / 2, w - 3 ,(height / 2) - y);
+    rect(i * w * 2 , height / 2, w - 3 ,-(y2));
   }
-  endShape();
+
 }
+
+//displayArray
+//transfer array from spectrum to displayArray(high frequencies)
