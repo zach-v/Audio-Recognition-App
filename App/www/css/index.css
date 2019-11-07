@@ -17,12 +17,12 @@ body {
     text-align: center;
 }
 
+
 .mic-button {
     position: absolute;
     width: 200px;
     height: 200px;
     margin-top: 170px;
-    left: 30%;
     text-align: center;
     background-color: #ffffff;
 

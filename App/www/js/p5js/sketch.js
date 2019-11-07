@@ -4,6 +4,7 @@ function setup() {
   var canvas = createCanvas(400, 400);
   noFill();
   canvas.parent('visualizer');
+  frameRate(30);
   
   displayArray = new Array(20);
   
@@ -16,7 +17,6 @@ function setup() {
 }
 
 function draw() {
-  background(200);
 
   let spectrum = fft.analyze();
 
