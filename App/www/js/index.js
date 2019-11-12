@@ -1,6 +1,3 @@
-var width = window.innerWidth;
-var height = window.innerHeight;
-
 var elem = document.getElementById('micbutton');
 var icon = document.getElementById('speakicon');
 var outputtext = document.getElementById('outputtext');
@@ -11,18 +8,15 @@ var body = document.getElementById('body');
 var original_size = 200;
 var expanded_size = 360;
 
+var expanded = false;
+
 // Initially place button in middle of view
 elem.style.left = (window.innerWidth - original_size)/2 + 'px';
 visualizer.style.display = "none";
 
-
-
-var expanded = false;
-
 elem.onmouseup = function() {
     if (!expanded) {
         expanded = true;
-
 
         // Gradients, var[0] is inital, var[1] is final
         var expand_gradient = [original_size, expanded_size];
@@ -52,14 +46,12 @@ elem.onmouseup = function() {
                 icon.style.opacity = (0.8 - pos) + '';
                 outputtext.style.opacity = pos + '';
                 elem.style.left = (left_offset_gradient[0] + pos*leftoffsetSlope) + 'px';
-
-                elem.style.left = ((window.innerWidth - elem.style.width)/2) + 'px';
-                
             }
         });
     }
 };
 
+// Update div position on window resize
 body.onresize = function() {
     if (!expanded) {
         elem.style.left = (window.innerWidth - original_size)/2 + 'px';
