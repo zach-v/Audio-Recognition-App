@@ -1,32 +1,83 @@
-let mic, fft;
+var mic, soundFile;
+var amplitude;
+
+var prevLevels = new Array(60);
+
 
 function setup() {
-  createCanvas(400, 400);
-  angleMode(DEGREES);
-  noFill();
-  colorMode(RGB, 255, 255, 255, 1);
+  c = createCanvas(600, 400);
+  background(0);
+  noStroke();
+
+  rectMode(CENTER);
+ // noStroke();
+  colorMode(RGB, 100);
+
+
+
   mic = new p5.AudioIn();
   mic.start();
-  fft = new p5.FFT(0.7, 64);
-  fft.setInput(mic);
-  w = width / 64;
+
+
+  amplitude = new p5.Amplitude();
+  amplitude.setInput(mic);
+  amplitude.smooth(0.2);
 }
 
 function draw() {
-  background(0);
-  let spectrum = fft.analyze();
-  stroke(255);
-  noStroke();
-  for (i = 0; i < spectrum.length; i++) {
-    var amp = spectrum[i];
-    var y = map(amp, 0, 256, height / 2, 0);
-    var y2 = map(amp, 0, 256, 0, height / 2);
-    fill(i, 255, 255);
-    rect(i * w * 2 , height / 2, w - 3 ,(height / 2) - y);
-    rect(i * w * 2 , height / 2, w - 3 ,-(y2));
+  background(20, 20);
+  fill(255, 10)
+
+  var level = amplitude.getLevel();
+
+  // rectangle variables
+  var spacing = 10;
+  var w = width/ (prevLevels.length * spacing);
+
+  var minHeight = 2;
+  var roundness = 20;
+
+  prevLevels.push(level);
+  prevLevels.splice(0, 1);
+
+  for (var i = 0; i < prevLevels.length; i++) {
+
+    var x = map(i, prevLevels.length, 0, width/2, width);
+    var h = map(prevLevels[i], 0, 0.2, minHeight, height);
+
+    var alphaValue = logMap(i, 0, prevLevels.length, 1, 250);
+
+    var hueValue = map(h, minHeight, height, 200, 255);
+
+    fill(hueValue, 255, 255, alphaValue);
+
+    rect(x, height/2, w, h);
+    rect(width - x, height/2, w, h);
+  }
+  
+  
+function logMap(val, inMin, inMax, outMin, outMax) {
+
+  for (var i = 0; i < arguments.length; i++) {
+    if (arguments[i] === 0) {
+      arguments[i] = 0.0000000000000001;
+    }
   }
 
-}
+  var minv = Math.log(outMin);
+  var maxv = Math.log(outMax);
 
-//displayArray
-//transfer array from spectrum to displayArray(high frequencies)
+  var numerator = maxv - minv;
+  var denom = inMax - inMin;
+
+  if (denom === 0) {
+    denom = 0.000000000001;
+  }
+
+  var scale = numerator / denom;
+
+  return Math.exp(minv + scale*(val-inMin));
+}
+  
+
+}
