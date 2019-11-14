@@ -58,4 +58,10 @@ body.onresize = function() {
     } else {
         elem.style.left = (window.innerWidth - expanded_size)/2 + 'px';
     }
+    console.log(centeredTest(window.innerWidth, elem.style.width, elem.getBoundingClientRect().left));
+
 };
+
+function centeredTest(viewWidth, divWidth, divPos) {
+    return (viewWidth / 2) - (divPos + (divWidth / 2));
+}
