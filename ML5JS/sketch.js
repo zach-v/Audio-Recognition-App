@@ -8,9 +8,10 @@ let resultP;
 This is used for a custom model made with Google's Teachable Machine
 const classifier = ml5.soundClassifier('path/to/model.json', modelReady);
 */
-
+let testCase1URL = 'https://teachablemachine.withgoogle.com/models/OwRCAdh-/' + 'model.json';
+let soundModelURL = 'SpeechCommands18w';
 function preload() {
-	classifier = ml5.soundClassifier('SpeechCommands18w', options, modelReady);
+	classifier = ml5.soundClassifier(testCase1URL, options, modelReady);
 }
 
 // P5 init function
