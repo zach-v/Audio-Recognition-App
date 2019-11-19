@@ -1,46 +1,67 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-    },
+var elem = document.getElementById('micbutton');
+var icon = document.getElementById('speakicon');
+var outputtext = document.getElementById('outputtext');
+var visualizer = document.getElementById('visualizer');
+var body = document.getElementById('body');
 
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
-    onDeviceReady: function() {
-        this.receivedEvent('deviceready');
-    },
+// Button/Box sizes
+var original_size = 200;
+var expanded_size = 360;
 
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+var expanded = false;
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+// Initially place button in middle of view
+elem.style.left = (window.innerWidth - original_size)/2 + 'px';
+visualizer.style.display = "none";
 
-        console.log('Received Event: ' + id);
+elem.onmouseup = function() {
+    if (!expanded) {
+        expanded = true;
+
+        // Gradients, var[0] is inital, var[1] is final
+        var expand_gradient = [original_size, expanded_size];
+        var border_rad_gradient = [50, 5];
+        var top_offset_gradient = [170, 60];
+        var left_offset_gradient = [(window.innerWidth - original_size)/2, (window.innerWidth - expanded_size)/2];
+
+        // Variable to keep track of progress in animation
+        var pos = 0;
+        // Expanding animation
+        var id = setInterval(function frame() {
+            if (pos > 1) {
+                clearInterval(id);
+            } else {
+                pos = pos + 0.02;
+                // Calculate differences
+                borderRadSlope = border_rad_gradient[1] - border_rad_gradient[0];
+                sizeSlope = expand_gradient[1] - expand_gradient[0];
+                topoffsetSlope = top_offset_gradient[1] - top_offset_gradient[0];
+                leftoffsetSlope = left_offset_gradient[1] - left_offset_gradient[0];
+                
+                // Update attributes
+                elem.style.borderRadius = (border_rad_gradient[0] + borderRadSlope*pos) + '%';
+                elem.style.width = (expand_gradient[0] + sizeSlope*pos) + 'px';
+                elem.style.height = (expand_gradient[0] + sizeSlope*pos + 70) + 'px';
+                elem.style.marginTop =  (top_offset_gradient[0] + topoffsetSlope*pos) + 'px';
+                icon.style.opacity = (0.8 - pos) + '';
+                outputtext.style.opacity = pos + '';
+                elem.style.left = (left_offset_gradient[0] + pos*leftoffsetSlope) + 'px';
+            }
+        });
     }
 };
 
-app.initialize();
+// Update div position on window resize
+body.onresize = function() {
+    if (!expanded) {
+        elem.style.left = (window.innerWidth - original_size)/2 + 'px';
+    } else {
+        elem.style.left = (window.innerWidth - expanded_size)/2 + 'px';
+    }
+    console.log(centeredTest(window.innerWidth, elem.style.width, elem.getBoundingClientRect().left));
+
+};
+
+function centeredTest(viewWidth, divWidth, divPos) {
+    return (viewWidth / 2) - (divPos + (divWidth / 2));
+}

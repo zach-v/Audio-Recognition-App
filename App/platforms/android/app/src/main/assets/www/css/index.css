@@ -1,7 +1,7 @@
 :root {
     /* variables */
     --button-container-height: 100vh;
-    --button-container-color: #b6e6bd;
+    --button-container-color: #7bb1ca;
 }
 
 body {
@@ -17,12 +17,12 @@ body {
     text-align: center;
 }
 
+
 .mic-button {
     position: absolute;
     width: 200px;
     height: 200px;
     margin-top: 170px;
-    left: 30%;
     text-align: center;
     background-color: #ffffff;
 
@@ -40,4 +40,17 @@ body {
     top: 30px;
     opacity: 1;
 
+}
+
+#outputtext {
+    position: relative;
+    opacity: 0;
+    font-size: 24pt;
+    font-family: 'Helvetica';
+    color: gray;
+}
+
+#visualizer {
+    display: inline-block;
+    margin-top: 400px;
 }
