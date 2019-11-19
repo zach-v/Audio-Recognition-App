@@ -10,8 +10,9 @@ const classifier = ml5.soundClassifier('path/to/model.json', modelReady);
 */
 let testCase1URL = 'https://teachablemachine.withgoogle.com/models/OwRCAdh-/' + 'model.json';
 let soundModelURL = 'SpeechCommands18w';
+
 function preload() {
-	classifier = ml5.soundClassifier(testCase1URL, options, modelReady);
+	classifier = ml5.soundClassifier(soundModelURL, options, modelReady);
 }
 
 // P5 init function

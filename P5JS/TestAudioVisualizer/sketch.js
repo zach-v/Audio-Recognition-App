@@ -26,7 +26,9 @@ function setup() {
 
 function draw() {
   background(20, 20);
-  fill(255, 10)
+  fill(255, 10);
+
+  getAudioContext().resume();
 
   var level = amplitude.getLevel();
 
