@@ -1,7 +1,7 @@
 var mic, soundFile;
 var amplitude;
 
-var prevLevels = new Array(60);
+var prevLevels = new Array(100);
 
 
 function setup() {
@@ -10,10 +10,7 @@ function setup() {
   noStroke();
 
   rectMode(CENTER);
- // noStroke();
-  colorMode(RGB, 100);
-
-
+  colorMode(RGB);
 
   mic = new p5.AudioIn();
   mic.start();
@@ -21,7 +18,7 @@ function setup() {
 
   amplitude = new p5.Amplitude();
   amplitude.setInput(mic);
-  amplitude.smooth(0.2);
+  amplitude.smooth(0.8);
 }
 
 function draw() {
