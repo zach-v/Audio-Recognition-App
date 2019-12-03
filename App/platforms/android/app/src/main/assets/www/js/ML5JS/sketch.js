@@ -19,7 +19,7 @@ function preload() {
 // P5 init function
 function setup() {
 	noCanvas();
-	noLoop();
+
 }
 
 // P5 draw loop

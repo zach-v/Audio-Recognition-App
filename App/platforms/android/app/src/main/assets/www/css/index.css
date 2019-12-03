@@ -1,7 +1,7 @@
 :root {
     /* variables */
     --button-container-height: 100vh;
-    --button-container-color: #7bb1ca;
+    --button-container-color: #344147;
 }
 
 body {
@@ -52,5 +52,6 @@ body {
 
 #visualizer {
     display: inline-block;
-    margin-top: 400px;
+    text-align: center;
+
 }

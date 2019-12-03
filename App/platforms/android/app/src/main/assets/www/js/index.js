@@ -12,7 +12,7 @@ var expanded = false;
 
 // Initially place button in middle of view
 elem.style.left = (window.innerWidth - original_size)/2 + 'px';
-visualizer.style.display = "none";
+//visualizer.style.display = "none";
 
 elem.onmouseup = function() {
     if (!expanded) {
@@ -48,6 +48,7 @@ elem.onmouseup = function() {
                 elem.style.left = (left_offset_gradient[0] + pos*leftoffsetSlope) + 'px';
             }
         });
+        runNow();
     }
 };
 
@@ -58,10 +59,6 @@ body.onresize = function() {
     } else {
         elem.style.left = (window.innerWidth - expanded_size)/2 + 'px';
     }
-    console.log(centeredTest(window.innerWidth, elem.style.width, elem.getBoundingClientRect().left));
+    resizeAudioCanvas();
 
 };
-
-function centeredTest(viewWidth, divWidth, divPos) {
-    return (viewWidth / 2) - (divPos + (divWidth / 2));
-}
