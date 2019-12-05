@@ -15,7 +15,6 @@ function preload() {
 	classifier = ml5.soundClassifier('SpeechCommands18w', options, modelReady);
 }
 
-
 function setup() {
   c = createCanvas(window.innerWidth, window.innerHeight);
   c.parent(document.getElementById('visualizer'));
@@ -29,6 +28,7 @@ function setup() {
   mic = new p5.AudioIn();
   mic.start();
 
+  //document.getElementById("modelFieldButton").addEventListener("click", loadNewModel);
 
   amplitude = new p5.Amplitude();
   amplitude.setInput(mic);
@@ -42,6 +42,11 @@ function runNow() {
 
 function resizeAudioCanvas() {
   resizeCanvas(window.innerWidth, window.innerHeight);
+}
+
+function loadNewModel() {
+  var model = document.getElementById('modelField').value;
+  classifier = ml5.soundClassifier(model, options, modelReady);
 }
 
 function draw() {

@@ -9,6 +9,11 @@ body {
     padding: 0px;
 }
 
+.model-loader {
+    position: relative;
+    text-align: center;
+}
+
 .button-container {
     background-color: var(--button-container-color);
     height: var(--button-container-height);
